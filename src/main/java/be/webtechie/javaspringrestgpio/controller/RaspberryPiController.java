@@ -74,33 +74,34 @@ public class RaspberryPiController {
 	@GetMapping("/raspberry/test2")
 	public void test2() {
 		logger.info("<--Pi4J--> GPIO Test2 ... started.");
-		
-		if (Gpio.wiringPiSetup() == -1) {
-			logger.info("GPIO SETUP ERROR");
-            return;
-        }
-		else {
-			logger.info("01: "+RaspiPin.GPIO_01);
-			logger.info("02: "+RaspiPin.GPIO_02);
-			logger.info("03: "+RaspiPin.GPIO_03);
-			logger.info("04: "+RaspiPin.GPIO_04);
-		}
-        
-        // create gpio controller
-        GpioController gpio = GpioFactory.getInstance();
-        
-        // provision gpio pin #02 as an output pin and turn on
-        if (pin==null) { logger.info("pin is null, setting to low"); pin = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_02, "MyLED-2", PinState.LOW); }
-        else {
-        	logger.info("STATE: "+pin.getState());
-        	if (pin.getState().isHigh()) {logger.info("pin is high, setting to low"); pin.low();}
-        	else {logger.info("pin is low, setting to high"); pin.high();}
-        }
-        // continuous loop
-//        while(true)
-//        {
-//            pin.setState(true);
-//            pin.setState(false);
+//		
+//		if (Gpio.wiringPiSetup() == -1) {
+//			logger.info("GPIO SETUP ERROR");
+//            return;
 //        }
+//		else {
+//			logger.info("01: "+RaspiPin.GPIO_01);
+//			logger.info("02: "+RaspiPin.GPIO_02);
+//			logger.info("03: "+RaspiPin.GPIO_03);
+//			logger.info("04: "+RaspiPin.GPIO_04);
+//		}
+//        
+//        // create gpio controller
+//        GpioController gpio = GpioFactory.getInstance();
+//        
+//        // provision gpio pin #02 as an output pin and turn on
+//        if (pin==null) { logger.info("pin is null, setting to low"); pin = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_02, "MyLED-2", PinState.LOW); }
+//        else {
+//        	logger.info("STATE: "+pin.getState());
+//        	if (pin.getState().isHigh()) {logger.info("pin is high, setting to low"); pin.low();}
+//        	else {logger.info("pin is low, setting to high"); pin.high();}
+//        }
+		
+		GpioPinDigitalOutput op = GpioFactory.getInstance().provisionDigitalOutputPin(RaspiPin.GPIO_02);
+
+		if (op == null) {logger.info("GPIO_02 is Null"); return;}
+		if (op.isHigh()) {logger.info("GPIO_02 is high, setting to low"); op.low();}
+	    if (op.isLow()) {logger.info("GPIO_02 is low, setting to high"); op.high();}
+	    
 	}
 }
