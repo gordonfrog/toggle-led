@@ -53,14 +53,19 @@ public class RaspberryPiController {
         // create gpio controller
         GpioController gpio = GpioFactory.getInstance();
         
-        // provision gpio pin #01 as an output pin and turn on
-        GpioPinDigitalOutput pin = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_02, "MyLED-2", PinState.HIGH);
-
-        // continuous loop
-        while(true)
-        {
-            pin.setState(true);
-            pin.setState(false);
+        // provision gpio pin #02 as an output pin and turn on
+        if (pin==null)
+        	pin = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_02, "MyLED-2", PinState.HIGH);
+        else {
+        	logger.info("STATE: "+pin.getState());
+        	if (pin.getState().isHigh()) pin.setState(false);
+        	else pin.setState(true);
         }
+        // continuous loop
+//        while(true)
+//        {
+//            pin.setState(true);
+//            pin.setState(false);
+//        }
 	}
 }
