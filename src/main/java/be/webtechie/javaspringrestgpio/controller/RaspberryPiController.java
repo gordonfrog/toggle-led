@@ -22,9 +22,9 @@ public class RaspberryPiController {
 	@GetMapping("/raspberry/light")
 	public Status light(){
 		logger.info("/raspberry/light");
+		GpioController gpio = GpioFactory.getInstance();
 		Status status = new Status();	
-		if(pin==null){
-		  	GpioController gpio = GpioFactory.getInstance();	        
+		if(pin==null){	        
 	        pin = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_02, "MyLED", PinState.HIGH);
 	        logger.info("pin: "+pin);
 		}
@@ -34,11 +34,11 @@ public class RaspberryPiController {
 		logger.info("is pin low? "+pin.isLow());
 		if(pin.isHigh()) {
 			//pin.toggle();
-			pin.low();
-			status.setCode("ON");
+			//pin.low();
+			pin = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_02, "MyLED", PinState.LOW);
+			status.setCode("OFF");
 		} else if (pin.isLow()) {
-			//pin.toggle();
-			pin.high();
+			pin = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_02, "MyLED", PinState.HIGH);
 			status.setCode("ON");
 		}
 		logger.info("returning status: "+status);
