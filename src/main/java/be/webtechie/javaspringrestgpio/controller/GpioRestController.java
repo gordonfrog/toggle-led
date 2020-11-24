@@ -103,7 +103,8 @@ public class GpioRestController {
     
     @GetMapping(path = "toggle2", produces = "application/json")
     public boolean togglePin2() {
-        return this.gpioManager.togglePin((int) 2);
+    	this.gpioManager.setPinDigitalState(2, 0);
+        return this.gpioManager.togglePin(2);
     }
 
     /**
