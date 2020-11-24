@@ -100,8 +100,8 @@ public class RaspberryPiController {
 		GpioPinDigitalOutput op = GpioFactory.getInstance().provisionDigitalOutputPin(RaspiPin.GPIO_02);
 
 		if (op == null) {logger.info("GPIO_02 is Null"); return;}
-		if (op.isHigh()) {logger.info("GPIO_02 is high, setting to low"); op.low();}
-	    if (op.isLow()) {logger.info("GPIO_02 is low, setting to high"); op.high();}
+		if (op.isHigh()) {logger.info("GPIO_02 is high, setting to low"); op.low(); return;}
+	    if (op.isLow()) {logger.info("GPIO_02 is low, setting to high"); op.high(); return;}
 	    
 	}
 }
