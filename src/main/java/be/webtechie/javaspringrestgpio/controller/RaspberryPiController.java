@@ -19,6 +19,7 @@ public class RaspberryPiController {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	public static GpioPinDigitalOutput pin;
+	public static GpioPinDigitalOutput op;
 	
 	@GetMapping("/raspberry/light")
 	public Status light(){
@@ -97,9 +98,10 @@ public class RaspberryPiController {
 //        	else {logger.info("pin is low, setting to high"); pin.high();}
 //        }
 		
-		GpioPinDigitalOutput op = GpioFactory.getInstance().provisionDigitalOutputPin(RaspiPin.GPIO_02);
-
-		if (op == null) {logger.info("GPIO_02 is Null"); return;}
+		if (op == null) {
+			op = GpioFactory.getInstance().provisionDigitalOutputPin(RaspiPin.GPIO_02);
+			logger.info("GPIO_02 is Null"); return;
+		}
 		if (op.isHigh()) {logger.info("GPIO_02 is high, setting to low"); op.low(); return;}
 	    if (op.isLow()) {logger.info("GPIO_02 is low, setting to high"); op.high(); return;}
 	    
