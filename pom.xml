@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>be.webtechie</groupId>
-	<artifactId>java-spring-rest-gpio</artifactId>
+	<artifactId>toggle-gpio</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>java-spring-rest-gpio</name>
+	<name>toggle-gpio</name>
 	<description>Demo project for Spring Boot to read and write GPIO's</description>
 
 	<properties>
