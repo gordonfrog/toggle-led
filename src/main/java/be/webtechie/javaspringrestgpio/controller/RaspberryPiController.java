@@ -10,6 +10,7 @@ import com.pi4j.io.gpio.GpioFactory;
 import com.pi4j.io.gpio.GpioPinDigitalOutput;
 import com.pi4j.io.gpio.PinState;
 import com.pi4j.io.gpio.RaspiPin;
+import com.pi4j.wiringpi.Gpio;
 
 import be.webtechie.javaspringrestgpio.domain.Status;
 
@@ -48,9 +49,42 @@ public class RaspberryPiController {
 		return status;
 	}
 	
-	@GetMapping("/raspberry/test")
-	public void test() {
-		logger.info("<--Pi4J--> GPIO Example ... started.");
+	@GetMapping("/raspberry/test1")
+	public void test1() {
+		logger.info("<--Pi4J--> GPIO Test1 ... started.");
+        
+        // create gpio controller
+        GpioController gpio = GpioFactory.getInstance();
+        
+        // provision gpio pin #02 as an output pin and turn on
+        if (pin==null) { logger.info("pin is null, setting to low"); pin = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_02, "MyLED-2", PinState.LOW); }
+        else {
+        	logger.info("STATE: "+pin.getState());
+        	if (pin.getState().isHigh()) {logger.info("pin is high, setting to low"); pin.low();}
+        	else {logger.info("pin is low, setting to high"); pin.high();}
+        }
+        // continuous loop
+//        while(true)
+//        {
+//            pin.setState(true);
+//            pin.setState(false);
+//        }
+	}
+	
+	@GetMapping("/raspberry/test2")
+	public void test2() {
+		logger.info("<--Pi4J--> GPIO Test2 ... started.");
+		
+		if (Gpio.wiringPiSetup() == -1) {
+			logger.info("GPIO SETUP ERROR");
+            return;
+        }
+		else {
+			logger.info("01: "+RaspiPin.GPIO_01);
+			logger.info("02: "+RaspiPin.GPIO_02);
+			logger.info("03: "+RaspiPin.GPIO_03);
+			logger.info("04: "+RaspiPin.GPIO_04);
+		}
         
         // create gpio controller
         GpioController gpio = GpioFactory.getInstance();
