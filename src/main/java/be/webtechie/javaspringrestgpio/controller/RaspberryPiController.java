@@ -56,7 +56,7 @@ public class RaspberryPiController {
         GpioController gpio = GpioFactory.getInstance();
         
         // provision gpio pin #02 as an output pin and turn on
-        if (pin==null) { logger.info("pin is null, setting to low"); pin.low(); pin = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_02, "MyLED-2", PinState.LOW); }
+        if (pin==null) { logger.info("pin is null, setting to low"); pin = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_02, "MyLED-2", PinState.LOW); }
         else {
         	logger.info("STATE: "+pin.getState());
         	if (pin.getState().isHigh()) {logger.info("pin is high, setting to low"); pin.low();}
