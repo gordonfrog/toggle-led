@@ -33,10 +33,10 @@ public class RaspberryPiController {
 		logger.info("is pin high? "+pin.isHigh());
 		logger.info("is pin low? "+pin.isLow());
 		if(pin.isHigh() || pin.isLow()) {
-			pin=null;
+			pin.blink(20L);
 			status.setCode("OFF");
 		} else if (pin.isLow()) {
-			pin=null;
+			pin.toggle();
 			status.setCode("OFF");
 		}
 		logger.info("returning status: "+status);
