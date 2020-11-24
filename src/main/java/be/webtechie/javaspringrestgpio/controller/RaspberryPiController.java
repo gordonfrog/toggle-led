@@ -33,12 +33,16 @@ public class RaspberryPiController {
 		logger.info("is pin high? "+pin.isHigh());
 		logger.info("is pin low? "+pin.isLow());
 		if(pin.isHigh()) {
-			//pin.toggle();
-			//pin.low();
-			pin = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_02, "MyLED", PinState.LOW);
+			pin.toggle();
+			pin.low();
+			pin.setState(PinState.LOW);
+			//pin = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_02, "MyLED", PinState.LOW);
 			status.setCode("OFF");
 		} else if (pin.isLow()) {
-			pin = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_02, "MyLED", PinState.HIGH);
+			pin.toggle();
+			pin.high();
+			pin.setState(PinState.HIGH);
+			//pin = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_02, "MyLED", PinState.HIGH);
 			status.setCode("ON");
 		}
 		logger.info("returning status: "+status);
