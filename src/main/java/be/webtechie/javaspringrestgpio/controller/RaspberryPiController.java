@@ -31,12 +31,13 @@ public class RaspberryPiController {
 		else logger.info("pin: "+pin);
 		
 		logger.info("is pin high? "+pin.isHigh());
-		if(pin.isHigh()) {
-			pin.low();
+		logger.info("is pin low? "+pin.isLow());
+		if(pin.isHigh() || pin.isLow()) {
+			pin=null;
 			status.setCode("OFF");
 		} else if (pin.isLow()) {
-			pin.high();
-			status.setCode("ON");
+			pin=null;
+			status.setCode("OFF");
 		}
 		logger.info("returning status: "+status);
 		
